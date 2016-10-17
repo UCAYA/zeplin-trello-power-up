@@ -1,0 +1,22 @@
+{
+  "name": "Zeplin Power-Up",
+  "description": "",
+  "details": "Power-Up to add somes features with Zeplin",
+  "icon": {
+    "url": "./images/logo.png"
+  },
+  "author": "UCAYA",
+  "capabilities": [
+    "callback",
+    "attachment-thumbnail",
+    "format-url"
+  ],
+  "connectors": {
+    "iframe": {
+      "url": "./index.html"
+    }
+  },
+  "recommend": {
+    "urls": []
+  }
+}
