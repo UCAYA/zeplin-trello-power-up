@@ -11,29 +11,40 @@ TrelloPowerUp.initialize({
     var result = re.exec(options.url);
     if(result) {
 
-      var zeplinFormatUrl = "https://app.zeplin.io/project.html#pid={pid}&sid={sid}";
-      var zeplinUrl = zeplinFormatUrl.replace("{pid}", result[1]).replace("{sid}", result[2]);
+      return t.get('board', 'private', 'zeplinuri').then(function(zeplinUri) {
 
-      // return an object with some or all of these properties:
-      // url, title, image, openText, modified (Date), created (Date), createdBy, modifiedBy
-      return {
-        url: options.url,
-        title: "Zeplin Scene - Screen",
-        image: {
-          url: COLOR_ICON,
-          logo: true // false if you are using a thumbnail of the content
-        },
-        openText: 'Open screen',
-        initialize: {
-          type: 'iframe',
-          url: t.signUrl(TrelloPowerUp.util.relativeUrl('link.html'), {url: zeplinUrl, text: "Open screen in Zeplin app"})
-        }
-      };
+        var zeplinFormatUrl = zeplinUri == "app" ? "zpl://screen?pid={pid}&sid={sid}" : "https://app.zeplin.io/project.html#pid={pid}&sid={sid}";
+        var zeplinUrl = zeplinFormatUrl.replace("{pid}", result[1]).replace("{sid}", result[2]);
+
+        // return an object with some or all of these properties:
+        // url, title, image, openText, modified (Date), created (Date), createdBy, modifiedBy
+        return {
+          url: options.url,
+          title: "Zeplin Scene - Screen",
+          image: {
+            url: COLOR_ICON,
+            logo: true // false if you are using a thumbnail of the content
+          },
+          openText: 'Open screen',
+          initialize: {
+            type: 'iframe',
+            url: t.signUrl(TrelloPowerUp.util.relativeUrl('link.html'), {url: zeplinUrl, text: "Open screen in Zeplin app"})
+          }
+        };
+
+      });
     } else {
       throw t.NotHandled("Not a handled URL");
     }
   },
   'format-url': function(t, options) {
     throw t.NotHandled();
+  },
+  'show-settings': function(t, options){
+    return t.popup({
+      title: 'Settings',
+      url: './settings.html',
+      height: 184
+    });
   }
 });

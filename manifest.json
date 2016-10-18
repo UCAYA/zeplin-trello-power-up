@@ -9,7 +9,8 @@
   "capabilities": [
     "callback",
     "attachment-thumbnail",
-    "format-url"
+    "format-url",
+    "show-settings"
   ],
   "connectors": {
     "iframe": {
